@@ -1,0 +1,28 @@
+cloud:
+  aws:
+    credentials: 
+      access-key: AKIAXJSWRFA2WXKVTGXK   
+      secret-key: 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 
+    region:
+      static: us-east-2
+    stack:
+      auto: false
+
+
+ 
+
+application:
+  bucket:
+    name: schoolfilesbuenosaires
+
+
+spring: 
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 20MB
+      max-file-size: 25MB
+      max-request-size: 25MB
+
+server:
+  port: 8080
