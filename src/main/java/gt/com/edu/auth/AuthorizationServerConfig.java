@@ -17,6 +17,8 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import gt.com.edu.models.entity.Usuario;
+
 
 @Configuration
 @EnableAuthorizationServer
@@ -43,7 +45,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		//permitimos acceso y verificación del token al endpoint de autenticación 
 		.checkTokenAccess("isAuthenticated()");
 	}
+@Autowired
 
+	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		// colocamos los clientes que accederan al backend en nuestro caso angular

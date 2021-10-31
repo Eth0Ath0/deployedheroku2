@@ -3,8 +3,11 @@ package gt.com.edu.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,15 @@ public class usuarioController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+
+	//@Autowired
+	//public PasswordEncoder passwordEncoder;
+
+	 
+	
 	@Secured({"ROLE_ADMIN","ROLE_PROFESOR"})
 	@GetMapping("/listar")
 	public List<Usuario> index(){
@@ -39,13 +51,35 @@ public class usuarioController {
 		return usuarioService.findById(id);
 		
 	}
+	
+	
 	@Secured({"ROLE_ADMIN","ROLE_PROFESOR"})
 	@PostMapping("/crear")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario create(@RequestBody Usuario usuario) {
+		
+		
+    String  encodedPassword = passwordEncoder.encode(usuario.getContraseña_usuario());
+         
+         usuario.setContraseña_usuario(encodedPassword);
+         
+         
+
+		
+		/*usuario.setNombre_usuario(usuario.getNombre_usuario());
+	    usuario.setEnabled(usuario.getEnabled());
+		usuario.setContraseña_usuario(passwordEncoder.encode(usuario.getContraseña_usuario()));*/
+		
+		
 		return usuarioService.save(usuario);
 		
 	}
+
+		
+			
+	
+
+	
 	@Secured({"ROLE_ADMIN","ROLE_PROFESOR"})
 	@PutMapping("/actualizar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)

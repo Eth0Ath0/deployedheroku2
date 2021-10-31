@@ -31,6 +31,7 @@ public class Calificacion implements Serializable{
 	public Integer nota_bim3;
 	public Integer nota_bim4;
 	public Double promedio_final;
+	
 	public Double promedio_final1() {
 	return promedio_final=(double) ((nota_bim1+nota_bim2+nota_bim3+nota_bim4)/4);
 		

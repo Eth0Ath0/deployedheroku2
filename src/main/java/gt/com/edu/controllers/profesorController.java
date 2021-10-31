@@ -29,6 +29,7 @@ public class profesorController {
 	
 	@Autowired
 	private IProfesorService profesorService;
+	
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/listar")
 	public List<Profesor> index(){

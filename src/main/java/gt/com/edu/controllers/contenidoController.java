@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import gt.com.edu.model.services.IClaseService;
 import gt.com.edu.model.services.IContenidoService;
+import gt.com.edu.models.entity.Clase;
 import gt.com.edu.models.entity.Contenido;
 import gt.com.edu.model.services.StorageService;
 
@@ -34,6 +36,9 @@ public class contenidoController {
 	
 	@Autowired
 	private StorageService service;
+	
+	@Autowired
+	private IClaseService claseService;
 	
 	
 	@GetMapping("/listar")
@@ -49,20 +54,29 @@ public class contenidoController {
 		return contenidoService.findById(id);
 		
 	}
-	@Secured({"ROLE_PROFESOR","ROLE_ADMIN"})
+	/*@Secured({"ROLE_PROFESOR","ROLE_ADMIN"})
 	@PostMapping("/crear")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Contenido create(@RequestBody Contenido contenido) {
 		return contenidoService.save(contenido);
 		
-	}
+	}*/
 	
 	//cargar un archivo al bucket AWS
 	    @Secured({"ROLE_PROFESOR","ROLE_ADMIN"})
 		@PostMapping("/upload")
-		public ResponseEntity<String> uploadFile(@RequestParam( value ="file") MultipartFile file) {
+		public ResponseEntity<String> uploadFile(@RequestParam( value ="file") MultipartFile file, @RequestParam("id_clase")String id_clase) {
 			
- 			return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
+	    	Clase clase= claseService.findById(Long.parseLong(id_clase));
+	    	String nombreArchivo=service.uploadFile(file);
+	    	
+	    	Contenido contenido=new Contenido();
+	    	contenido.setNombre_contenido(nombreArchivo);
+	    	contenido.setClase(clase);
+	    	
+	    	contenidoService.save(contenido);
+	    	
+ 			return new ResponseEntity<>(contenido.getNombre_contenido(), HttpStatus.OK);
 		}
 	
 	

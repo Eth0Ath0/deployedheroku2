@@ -19,8 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,8 +28,6 @@ import lombok.Data;
 @Entity
 @Table(name="usuarios")
 public class Usuario implements Serializable{
-	
-	
 	
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -41,8 +38,8 @@ public class Usuario implements Serializable{
 	@Column(length = 80)
 	public String contraseña_usuario;
 	public  Boolean enabled;
-
-    	//relación entre usuarios y roles
+	
+	    //relación entre usuarios y roles
 	    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	    @JoinColumn(name="rol_id")
 	    //CON EL CASCADE CADA VEZ QUE SE ELIMINA EL USUARIO SE ELIMINAN TAMBIEN SUS ROLES ASIGNADOS

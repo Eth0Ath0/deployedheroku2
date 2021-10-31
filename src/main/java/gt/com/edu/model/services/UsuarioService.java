@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import gt.com.edu.models.dao.IUsuarioDao;
@@ -21,6 +22,9 @@ import gt.com.edu.models.entity.Usuario;
 
 @Service
 public class UsuarioService implements IUsuarioService,UserDetailsService {
+	
+
+	
 	//creamos un log en cuanto a los usuarios sean correctos o no
 	private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 	@Autowired
@@ -70,7 +74,8 @@ public class UsuarioService implements IUsuarioService,UserDetailsService {
 	@Override
 	public Usuario findBynombre_usuario(String nombre_usuario) {
 		// TODO Auto-generated method stub
-		return usuarioDao.findBynombre_usuario(nombre_usuario);
+		return null;
 	}
-
+	
+	
 }
